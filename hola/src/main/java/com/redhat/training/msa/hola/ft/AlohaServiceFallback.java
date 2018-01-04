@@ -1,4 +1,4 @@
-package com.redhat.training.msa.hola;
+package com.redhat.training.msa.hola.ft;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.faulttolerance.ExecutionContext;
 import org.eclipse.microprofile.faulttolerance.FallbackHandler;
+
+import com.redhat.training.msa.hola.rest.HolaResource;
 
 public class AlohaServiceFallback implements FallbackHandler<List<String>>{
 

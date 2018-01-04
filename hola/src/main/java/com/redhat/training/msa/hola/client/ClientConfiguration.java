@@ -1,4 +1,4 @@
-package com.redhat.training.msa.hola;
+package com.redhat.training.msa.hola.client;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
@@ -7,6 +7,9 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
+import com.redhat.training.msa.hola.rest.AlohaService;
+import com.redhat.training.msa.hola.tracing.WithoutTracing;
 
 public class ClientConfiguration {
 

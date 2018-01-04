@@ -1,4 +1,4 @@
-package com.redhat.training.msa.hola;
+package com.redhat.training.msa.hola.tracing;
 /**
  * JBoss, Home of Professional Open Source
  * Copyright 2016, Red Hat, Inc. and/or its affiliates, and individual
@@ -31,6 +31,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import com.redhat.training.msa.hola.rest.AlohaService;
 import com.uber.jaeger.metrics.Metrics;
 import com.uber.jaeger.metrics.NullStatsReporter;
 import com.uber.jaeger.metrics.StatsFactoryImpl;

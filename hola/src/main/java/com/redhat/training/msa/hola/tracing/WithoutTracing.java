@@ -1,4 +1,4 @@
-package com.redhat.training.msa.hola;
+package com.redhat.training.msa.hola.tracing;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -16,6 +16,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface WithTracing {
+public @interface WithoutTracing {
 
 }

@@ -1,4 +1,4 @@
-package com.redhat.training.msa.hola;
+package com.redhat.training.msa.hola.health;
 
 import javax.enterprise.context.ApplicationScoped;
 

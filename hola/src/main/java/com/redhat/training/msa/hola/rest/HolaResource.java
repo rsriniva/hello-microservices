@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.redhat.training.msa.hola;
+package com.redhat.training.msa.hola.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,14 @@ import javax.ws.rs.core.SecurityContext;
 
 import org.eclipse.microprofile.faulttolerance.Fallback;
 
+import com.redhat.training.msa.hola.ft.AlohaServiceFallback;
+import com.redhat.training.msa.hola.tracing.WithoutTracing;
+
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Path("/")
+@Api("hola")
 public class HolaResource {
 
     @Inject
