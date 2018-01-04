@@ -92,8 +92,8 @@ public class TracingConfiguration {
     private AlohaService alohaService(Tracer tracer) {
         // bind current span to Hystrix thread
         TracingConcurrencyStrategy.register();
-
-        return HystrixFeign.builder()
+        AlohaService service = 
+        		HystrixFeign.builder()
                 // Use apache HttpClient which contains the ZipKin Interceptors
                 .client(new TracingClient(new ApacheHttpClient(HttpClientBuilder.create().build()), tracer))
 
@@ -102,6 +102,9 @@ public class TracingConfiguration {
                 .decoder(new JacksonDecoder())
                 .target(AlohaService.class,"http://aloha:8080/",
                         () -> Collections.singletonList("Aloha response (fallback)"));
+        if (service != null)
+          log.info("Aloha service proxy created.");
+        return service;
     }
 
     @WebListener
