@@ -26,17 +26,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
-import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.faulttolerance.Fallback;
 
 import io.swagger.annotations.ApiOperation;
 
 @Path("/")
-@Health
-public class HolaResource implements HealthCheck {
+public class HolaResource {
 
     @Inject
+    @WithoutTracing
     private AlohaService alohaService;
 
     @Context
@@ -59,6 +57,7 @@ public class HolaResource implements HealthCheck {
     @Path("/hola-chaining")
     @Produces("application/json")
     @ApiOperation("Returns the greeting plus the next service in the chain")
+    @Fallback(AlohaServiceFallback.class)
     public List<String> holaChaining() {
         List<String> greetings = new ArrayList<>();
         greetings.add(hola());
@@ -66,10 +65,4 @@ public class HolaResource implements HealthCheck {
         return greetings;
     }
 
-	@Override
-	public HealthCheckResponse call() {
-
-		return HealthCheckResponse.named("hola service")
-				.up().build();
-	}
 }

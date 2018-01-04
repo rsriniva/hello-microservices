@@ -16,13 +16,20 @@
  */
 package com.redhat.training.msa.hola;
 
-import feign.RequestLine;
-
 import java.util.List;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
+import feign.RequestLine;
 
 public interface AlohaService {
 
 	@RequestLine("GET /api/aloha-chaining")
+	@Path("aloha-chaining")
+	@Produces("text/plain")
+	@GET
 	public List<String> aloha();
-
+	
 }

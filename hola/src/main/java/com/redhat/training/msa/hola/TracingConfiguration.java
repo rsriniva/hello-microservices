@@ -89,7 +89,8 @@ public class TracingConfiguration {
      */
     @Produces
     @Singleton
-    private AlohaService alohaService(Tracer tracer) {
+    @WithTracing
+    public AlohaService alohaService(Tracer tracer) {
         // bind current span to Hystrix thread
         TracingConcurrencyStrategy.register();
         AlohaService service = 

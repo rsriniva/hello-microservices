@@ -35,7 +35,7 @@
 		<version.surefire.plugin>2.16</version.surefire.plugin>
 		<version.war.plugin>2.5</version.war.plugin>
 		<version.fabric8.plugin>3.5.30</version.fabric8.plugin>
-		<version.resteasy>3.1.4.Final</version.resteasy>
+		<version.resteasy>3.0.24.Final</version.resteasy>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<openfeign.version>9.4.0</openfeign.version>
@@ -64,20 +64,15 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-client</artifactId>
+				<version>${version.resteasy}</version>
+			</dependency>
+			<dependency>
 				<groupId>io.github.openfeign.opentracing</groupId>
 				<artifactId>feign-hystrix-opentracing</artifactId>
 				<version>${openfeign.opentracing.version}</version>
 			</dependency>
-<!-- 			<dependency>
-				<groupId>com.fasterxml.jackson.jaxrs</groupId>
-				<artifactId>jackson-jaxrs-json-provider</artifactId>
-				<version>${version.jackson}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-annotations</artifactId>
-				<version>${version.jackson}</version>
-			</dependency> -->
 			<dependency>
 				<groupId>io.github.openfeign</groupId>
 				<artifactId>feign-jackson</artifactId>
