@@ -1,5 +1,4 @@
 /**
- * JBoss, Home of Professional Open Source
  * Copyright 2016, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
@@ -18,10 +17,8 @@ package com.redhat.training.msa.hola;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -29,12 +26,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
-import org.apache.deltaspike.core.api.config.ConfigResolver;
+import org.eclipse.microprofile.health.Health;
+import org.eclipse.microprofile.health.HealthCheck;
+import org.eclipse.microprofile.health.HealthCheckResponse;
 
 import io.swagger.annotations.ApiOperation;
 
 @Path("/")
-public class HolaResource {
+@Health
+public class HolaResource implements HealthCheck {
 
     @Inject
     private AlohaService alohaService;
@@ -51,14 +51,7 @@ public class HolaResource {
     @ApiOperation("Returns the greeting in Spanish")
     public String hola() {
         String hostname = System.getenv().getOrDefault("HOSTNAME", "unknown");
-        String translation = ConfigResolver
-            .resolve("hello")
-            .withDefault("Hola de %s")
-            .logChanges(true)
-            // 5 Seconds cache only for demo purpose
-            .cacheFor(TimeUnit.SECONDS, 5)
-            .getValue();
-        return String.format(translation, hostname);
+        return String.format("Hola de %s", hostname);
 
     }
 
@@ -73,11 +66,10 @@ public class HolaResource {
         return greetings;
     }
 
-    @GET
-    @Path("/health")
-    @Produces("text/plain")
-    @ApiOperation("Used to verify the health of the service")
-    public String health() {
-        return "I'm ok";
-    }
+	@Override
+	public HealthCheckResponse call() {
+
+		return HealthCheckResponse.named("hola service")
+				.up().build();
+	}
 }

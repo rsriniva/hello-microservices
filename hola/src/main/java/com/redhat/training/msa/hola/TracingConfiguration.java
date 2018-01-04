@@ -19,6 +19,7 @@ package com.redhat.training.msa.hola;
 import java.util.Collections;
 import java.util.EnumSet;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -52,6 +53,7 @@ import io.opentracing.contrib.web.servlet.filter.TracingFilter;
  * This class uses CDI to alias Zipkin resources to CDI beans
  *
  */
+@ApplicationScoped
 public class TracingConfiguration {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TracingConfiguration.class);
     private static final String SERVICE_NAME = "hola";

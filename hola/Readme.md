@@ -1,8 +1,5 @@
 # hola
-hola microservice using Java EE (JAX-RS) on WildFly Swarm
-
-The detailed instructions to run *Red Hat Helloworld MSA* demo, can be found at the following repository: <https://github.com/redhat-helloworld-msa/helloworld-msa>
-
+hola microservice using MicroProfile on WildFly Swarm
 
 Build and Deploy hola locally
 -----------------------------
@@ -15,10 +12,11 @@ Build and Deploy hola locally
 3. This will create a uber jar at  `target/hola-swarm.jar` and execute it.
 4. The application will be running at the following URL: <http://localhost:8080/api/hola>
 
-Deploy the application in Openshift
+Deploy the application in OpenShift
 -----------------------------------
 
-1. Make sure to be connected to the Docker Daemon
-2. Execute
+1. Make sure to be logged into OpenShift.
+2. Make sure you have created or selected the appropriate OpenShift project. 
+3. Execute:
 
-		mvn clean package docker:build fabric8:json fabric8:apply
+		mvn clean fabric8:deploy
