@@ -16,7 +16,6 @@ package com.redhat.training.msa.hola.tracing;
  * limitations under the License.
  */
 
-import java.util.Collections;
 import java.util.EnumSet;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -103,7 +102,7 @@ public class TracingConfiguration {
                 .logger(new Logger.ErrorLogger()).logLevel(Logger.Level.BASIC)
                 .decoder(new JacksonDecoder())
                 .target(AlohaService.class,"http://aloha:8080/",
-                        () -> Collections.singletonList("Aloha response (fallback)"));
+                        () -> "Aloha response (fallback)");
         if (service != null)
           log.info("Aloha service proxy created.");
         return service;

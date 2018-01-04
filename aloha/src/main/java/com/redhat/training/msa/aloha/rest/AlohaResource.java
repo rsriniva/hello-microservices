@@ -1,9 +1,8 @@
 /**
- * JBoss, Home of Professional Open Source
  * Copyright 2016, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,20 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.redhat.training.msa.hola.rest;
+package com.redhat.training.msa.aloha.rest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.SecurityContext;
 
-import feign.RequestLine;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
-public interface AlohaService {
+@Path("/")
+@Api("aloha")
+public class AlohaResource {
 
-	@RequestLine("GET /api/aloha")
-	@Path("aloha")
-	@Produces("text/plain")
-	@GET
-	public String aloha();
-	
+
+    @Context
+    private SecurityContext securityContext;
+
+    @Context
+    private HttpServletRequest servletRequest;
+
+    @GET
+    @Path("/aloha")
+    @Produces("text/plain")
+    @ApiOperation("Returns the greeting in Hawaiin")
+    public String hola() {
+        String hostname = servletRequest.getServerName(); 
+        return String.format("Aloha mai %s", hostname);
+
+    }
+
 }

@@ -26,7 +26,7 @@ public class ClientConfiguration {
 
 	@Produces
 	@Singleton
-	@WithoutTracing
+	@WithoutTracing 
 	public AlohaService alohaService() {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target("http://" + alohaHostname + ":" + alohaPort + "/api");

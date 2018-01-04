@@ -39,7 +39,7 @@ import io.swagger.annotations.ApiOperation;
 public class HolaResource {
 
     @Inject
-    @WithoutTracing
+    @WithoutTracing 
     private AlohaService alohaService;
 
     @Context
@@ -53,7 +53,7 @@ public class HolaResource {
     @Produces("text/plain")
     @ApiOperation("Returns the greeting in Spanish")
     public String hola() {
-        String hostname = System.getenv().getOrDefault("HOSTNAME", "unknown");
+        String hostname = servletRequest.getServerName();
         return String.format("Hola de %s", hostname);
 
     }
@@ -66,7 +66,7 @@ public class HolaResource {
     public List<String> holaChaining() {
         List<String> greetings = new ArrayList<>();
         greetings.add(hola());
-        greetings.addAll(alohaService.aloha());
+        greetings.add(alohaService.aloha());
         return greetings;
     }
 

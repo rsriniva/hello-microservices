@@ -14,20 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.redhat.training.msa.hola.rest;
+package com.redhat.training.msa.aloha.rest;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import java.io.IOException;
 
-import feign.RequestLine;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerResponseContext;
+import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.ext.Provider;
 
-public interface AlohaService {
+@Provider
+public class CorsFilter implements ContainerResponseFilter {
 
-	@RequestLine("GET /api/aloha")
-	@Path("aloha")
-	@Produces("text/plain")
-	@GET
-	public String aloha();
-	
+    @Override
+    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+        // Don't enable CORS for secured resources. This is made automatically already by the adapter
+        if (!requestContext.getUriInfo().getPath().endsWith("-secured")){
+            responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+        }
+    }
+
 }
