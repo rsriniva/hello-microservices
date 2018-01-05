@@ -21,7 +21,7 @@
 	<artifactId>aloha</artifactId>
 	<packaging>war</packaging>
 	<name>Red Hat Training MSA: aloha</name>
-	<description>Hawaiin Hello microservice</description>
+	<description>Hawaiian Hello microservice</description>
 
 	<dependencies>
 		<dependency>
@@ -34,13 +34,25 @@
 		</dependency>
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>microprofile-config</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>swagger</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>swagger-webapp</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>logging</artifactId>
+		</dependency>		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.22</version>
+		</dependency>
 	</dependencies>
 
 	<build>

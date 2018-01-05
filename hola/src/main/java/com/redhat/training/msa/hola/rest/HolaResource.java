@@ -18,6 +18,7 @@ package com.redhat.training.msa.hola.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -26,9 +27,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Metric;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
-import com.redhat.training.msa.hola.ft.AlohaServiceFallback;
 import com.redhat.training.msa.hola.tracing.WithoutTracing;
 
 import io.swagger.annotations.Api;
@@ -36,6 +42,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Path("/")
 @Api("hola")
+@ApplicationScoped
 public class HolaResource {
 
     @Inject
@@ -47,27 +54,52 @@ public class HolaResource {
 
     @Context
     private HttpServletRequest servletRequest;
+    
+    @Inject
+    @Metric(name = "requestCount", description = "Total endpoint requests made to the Hola microservice", 
+    		displayName="HolaResource#requestCount", absolute=true)
+    private Counter requestCounter;
+    
+	@Inject
+	@Metric(name = "failureCount", description = "Total chained endpoint failures encountered", 
+    		displayName="HolaResource#failureCount", absolute=true)
+	private Counter failedCount;
 
     @GET
     @Path("/hola")
     @Produces("text/plain")
     @ApiOperation("Returns the greeting in Spanish")
+    @Timed
     public String hola() {
+    		requestCounter.inc();
         String hostname = servletRequest.getServerName();
         return String.format("Hola de %s", hostname);
-
     }
 
     @GET
     @Path("/hola-chaining")
     @Produces("application/json")
     @ApiOperation("Returns the greeting plus the next service in the chain")
-    @Fallback(AlohaServiceFallback.class)
+    @Timed(absolute=true, unit = MetricUnits.MILLISECONDS, name = "holaChainingTimer", 
+    		displayName = "holaChainingTimer", description = "Invocation time for the holaChaining endpoint")
+    @Fallback(fallbackMethod="alohaFallback")
+    @CircuitBreaker(successThreshold = 4, requestVolumeThreshold = 3, 
+    		failureRatio = 0.50, delay = 1000)
+    @Timeout(1000)
     public List<String> holaChaining() {
+    		requestCounter.inc();
         List<String> greetings = new ArrayList<>();
         greetings.add(hola());
         greetings.add(alohaService.aloha());
         return greetings;
     }
 
+    @SuppressWarnings("unused")
+	private List<String> alohaFallback() {
+		failedCount.inc();
+	    List<String> greetings = new ArrayList<>();
+	    greetings.add(hola());
+	    greetings.add("Aloha fallback");
+	    return greetings;
+	}
 }

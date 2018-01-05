@@ -1,25 +1,22 @@
 package com.redhat.training.msa.hola.ft;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.faulttolerance.ExecutionContext;
 import org.eclipse.microprofile.faulttolerance.FallbackHandler;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 
-import com.redhat.training.msa.hola.rest.HolaResource;
-
-public class AlohaServiceFallback implements FallbackHandler<List<String>>{
-
+public class AlohaServiceFallback implements FallbackHandler<String>{
+	
 	@Inject
-	private HolaResource holaService;
+	@Metric(name = "failureCount", description = "Total chained endpoint failures encountered", 
+    		displayName="HolaResource#failureCount", absolute=true)
+	private Counter failedCount;
 	
 	@Override
-	public List<String> handle(ExecutionContext context) {
-		List<String> hellos = new ArrayList<String>();
-		hellos.add(holaService.hola());
-		hellos.add("aloha fallback");
-		return hellos;
+	public String handle(ExecutionContext context) {
+		failedCount.inc();
+		return "Aloha fallback";
 	}
 }
