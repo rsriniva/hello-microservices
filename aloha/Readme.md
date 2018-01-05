@@ -20,3 +20,7 @@ Deploy the application in OpenShift
 3. Execute:
 
 		mvn clean fabric8:deploy
+
+Known Bugs
+----------
+1. When run on an alternate port (not 8080) the swagger UI returns a 404 (Not Found). It works fine on port 8080.
