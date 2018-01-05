@@ -23,4 +23,4 @@ Deploy the application in OpenShift
 
 Known Bugs
 ----------
-1. When run on an alternate port (not 8080) the swagger UI returns a 404 (Not Found). It works fine on port 8080.
+1. None at this time
