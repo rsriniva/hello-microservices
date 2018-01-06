@@ -1,1 +1,16 @@
 # hello
+
+This Maven project contains two services:
+- Hola - says hello in Spanish
+- Aloha - says hello in Hawaiian
+
+Hola has a method that chains to the Aloha service in order to test things like fault tolerance.
+Hola has one secured method to test JWT.
+
+Microprofile specs utilized:
+- Config 1.1
+- JWT 1.0
+- Metrics 1.0
+- Fault Tolerance 1.0
+- Health 1.0
+- JAX-RS, CDI, JSON-P
