@@ -45,6 +45,7 @@
 		<jaeger.version>0.19.0</jaeger.version>
 		<swagger.version>1.5.8</swagger.version>
 		<version.microprofile>1.2</version.microprofile>
+		<arquillian.version>1.1.15.Final</arquillian.version>
 	</properties>
 
 	<dependencyManagement>
@@ -107,6 +108,11 @@
 				<groupId>org.webjars</groupId>
 				<artifactId>swagger-ui</artifactId>
 				<version>2.1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${arquillian.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

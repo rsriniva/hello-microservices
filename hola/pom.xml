@@ -30,6 +30,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>microprofile-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>microprofile-metrics</artifactId>
 		</dependency>
 		<dependency>
@@ -53,9 +57,17 @@
 			<artifactId>swagger-webapp</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>hystrix</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>jaeger</artifactId>
 		</dependency>
 		<!-- Feign -->
 		<dependency>
@@ -71,6 +83,7 @@
 			<artifactId>feign-httpclient</artifactId>
 		</dependency>
 
+
 		<!-- OpenTracing -->
 		<dependency>
 			<groupId>io.opentracing</groupId>
@@ -85,6 +98,12 @@
 		<dependency>
 			<groupId>com.uber.jaeger</groupId>
 			<artifactId>jaeger-core</artifactId>
+		</dependency>
+		<!-- arquillian -->
+		<dependency>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>arquillian</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
