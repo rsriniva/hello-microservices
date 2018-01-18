@@ -10,13 +10,13 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.ScopeType;
 import org.wildfly.swarm.Swarm;
 
-public class TestUtils {
+public class ArquillianTestUtils {
 
 	public static WebArchive deploy() {
 
 		File[] deps = Maven.resolver()
 				.loadPomFromFile("pom.xml")
-				.importDependencies(ScopeType.COMPILE,ScopeType.RUNTIME).resolve()
+				.importDependencies(ScopeType.COMPILE,ScopeType.RUNTIME,ScopeType.TEST).resolve()
 				.withTransitivity().asFile();
 		WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackages(true, "com.redhat.training.msa")

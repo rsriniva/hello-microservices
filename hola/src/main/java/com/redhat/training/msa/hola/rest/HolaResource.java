@@ -69,7 +69,10 @@ public class HolaResource {
     		displayName="HolaResource#failureCount", absolute=true)
 	private Counter failedCount;
 
-    @GET
+    /* (non-Javadoc)
+	 * @see com.redhat.training.msa.hola.rest.HolaResource#hola()
+	 */
+	@GET
     @Path("/hola")
     @Produces("text/plain")
     @ApiOperation("Returns the greeting in Spanish")
@@ -81,7 +84,10 @@ public class HolaResource {
         return String.format("Hola de %s", hostname);
     }
 
-    @GET
+    /* (non-Javadoc)
+	 * @see com.redhat.training.msa.hola.rest.HolaResource#holaChaining()
+	 */
+	@GET
     @Path("/hola-chaining")
     @Produces("application/json")
     @ApiOperation("Returns the greeting plus the next service in the chain")
@@ -100,7 +106,10 @@ public class HolaResource {
         return greetings;
     }
 
-    @GET
+    /* (non-Javadoc)
+	 * @see com.redhat.training.msa.hola.rest.HolaResource#secureHola()
+	 */
+	@GET
     @Path("/hola-secure")
     @Produces("application/json")
     @RolesAllowed({"VIP", "Voter"})
