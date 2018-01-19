@@ -22,9 +22,6 @@ import com.redhat.training.msa.hola.ArquillianTestUtils;
 @RunWith(Arquillian.class)
 public class HolaResourceNoFallbackTest {
 	
-	
-	
-
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(options().port(9999));
 	

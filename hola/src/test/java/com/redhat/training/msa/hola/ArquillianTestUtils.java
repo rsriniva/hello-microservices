@@ -18,11 +18,11 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.ScopeType;
+import org.wildfly.swarm.Swarm;
 import org.keycloak.jose.jws.Algorithm;
 import org.keycloak.jose.jws.JWSBuilder;
 import org.keycloak.representations.AccessToken;
 import org.keycloak.util.TokenUtil;
-import org.wildfly.swarm.Swarm;
 
 public class ArquillianTestUtils {
 
@@ -38,7 +38,8 @@ public class ArquillianTestUtils {
 				.addAsResource("project-defaults.yml","project-defaults.yml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE,"beans.xml")
 	            .addAsWebInfResource("jwt-roles.properties", "classes/jwt-roles.properties")
-                .addAsWebInfResource("privateKey.pem","classes/privateKey.pem")
+                .addAsManifestResource("publicKey.pem","classes/MP-JWT-SIGNER")
+                .addAsManifestResource("privateKey.pem","classes/privateKey.pem")
 				.addAsManifestResource("META-INF/microprofile-config.properties","microprofile-config.properties");
 		
 		System.out.println(webArchive.toString(true));
@@ -57,15 +58,16 @@ public class ArquillianTestUtils {
         return createAccessToken(role, (int) (System.currentTimeMillis() / 1000));
     }
 
-    
- 
+    public static String getExpiredAccessToken(String role) throws Exception {
+        return createAccessToken(role, (int) ((System.currentTimeMillis() / 1000)-600));
+    }
 
     private static String createAccessToken(String role, int issuedAt) throws Exception {
         AccessToken token = new AccessToken();
         token.type(TokenUtil.TOKEN_TYPE_BEARER);
         token.subject("testuser");
         token.issuedAt(issuedAt);
-        token.issuer("https://rhsso:8443/auth/realms/hola");
+        token.issuer("https://mpconference.com");
         token.expiration(issuedAt + 300);
         token.setAllowedOrigins(new HashSet<>());
 
@@ -78,7 +80,7 @@ public class ArquillianTestUtils {
         String encodedToken = new JWSBuilder().type("JWT").jsonContent(token).sign(jwsAlgorithm, privateKey);
         return encodedToken;
     }
-    
+
     private static PrivateKey readPrivateKey() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
         KeyFactory factory = KeyFactory.getInstance("RSA", "BC");
@@ -93,9 +95,5 @@ public class ArquillianTestUtils {
             privateKeyReader.close();
         }
     }
-
-    
- 
-
 
 }
