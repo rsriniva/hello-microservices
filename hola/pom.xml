@@ -135,10 +135,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-			<version>${version.bouncycastle}</version>
-			<scope>test</scope>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-boot-starter</artifactId>
+			<version>${version.keycloak}</version>
 		</dependency>
 	</dependencies>
 

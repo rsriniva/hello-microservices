@@ -1,8 +1,0 @@
-{
-  "realm": "coolstore",
-  "bearer-only": true,
-  "auth-server-url": "https://secure-sso-infra.apps.ocp.local.cluster/auth",
-  "ssl-required": "external",
-  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjLFbP4dc/v0yuNRSfpLHHcMAZCIp4050zzONJs3y/BZCoppgjLVCgGPlLuj4i5uAZeRFIokqm1GYWkYMpA+qvWTlYicGjLy9NVh7sLqRCWqu71eTyzN5L9PJ/lOfaedgoNzRPl+2IDDeVX+1Uf1YtIFO+QvqzT9CVbZRPZDuIoEAoWlvIrzkjVKhuFsJIJOoG5tgK5tt3bOev3MUROv5ZU+PdpnaH6sGisk+qIvJp2xELHTz683+ikfrXXEdehcKrV7EZSBqR8NEgar/+3HSoGIWK5YmtoElfE2UUwGgjeqwkPP/InPRuOFausowPO0yfIwBmhAYlEq8NzCIjDCT2QIDAQAB",
-  "resource": "coolstore"
-}

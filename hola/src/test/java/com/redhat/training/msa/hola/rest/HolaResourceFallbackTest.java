@@ -42,17 +42,12 @@ public class HolaResourceFallbackTest {
     	//By default the method calls the fallback because the aloha microservice is not working
     	given().when().get("/api/hola-chaining").then().body(containsString("Aloha fallback"));
     }
+
+
     @Test
     @RunAsClient
     public void testSecureEndpointWithoutCredentials() throws InterruptedException {
     	given().when().get("/api/hola-secure").then().statusCode(401);
-    }
-    
-    @Test
-    public void testSecureEndpointWithCredentials() throws Exception {
-    	given()
-    	.auth().oauth2(ArquillianTestUtils.getValidAccessToken("Voter"))
-        .when().get("/api/hola-secure").then().statusCode(200);
     }
 
 

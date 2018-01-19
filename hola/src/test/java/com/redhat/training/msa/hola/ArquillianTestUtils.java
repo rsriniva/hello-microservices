@@ -38,8 +38,7 @@ public class ArquillianTestUtils {
 				.addAsResource("project-defaults.yml","project-defaults.yml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE,"beans.xml")
 	            .addAsWebInfResource("jwt-roles.properties", "classes/jwt-roles.properties")
-	            .addAsWebInfResource("keycloak.json", "keycloak.json")
-	            .addAsWebInfResource("private.pem", "classes/private.pem")
+                .addAsWebInfResource("privateKey.pem","classes/privateKey.pem")
 				.addAsManifestResource("META-INF/microprofile-config.properties","microprofile-config.properties");
 		
 		System.out.println(webArchive.toString(true));
@@ -66,7 +65,7 @@ public class ArquillianTestUtils {
         token.type(TokenUtil.TOKEN_TYPE_BEARER);
         token.subject("testuser");
         token.issuedAt(issuedAt);
-        token.issuer("https://rhsso:8443/auth/realms/coolstore-test");
+        token.issuer("https://rhsso:8443/auth/realms/hola");
         token.expiration(issuedAt + 300);
         token.setAllowedOrigins(new HashSet<>());
 
@@ -83,7 +82,7 @@ public class ArquillianTestUtils {
     private static PrivateKey readPrivateKey() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
         KeyFactory factory = KeyFactory.getInstance("RSA", "BC");
-        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("private.pem");
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("privateKey.pem");
         PemReader privateKeyReader = new PemReader(new InputStreamReader(is));
         try {
             PemObject privObject = privateKeyReader.readPemObject();
@@ -94,6 +93,9 @@ public class ArquillianTestUtils {
             privateKeyReader.close();
         }
     }
+
+    
+ 
 
 
 }
