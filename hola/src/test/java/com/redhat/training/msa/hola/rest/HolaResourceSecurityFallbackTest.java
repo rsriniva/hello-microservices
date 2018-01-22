@@ -34,9 +34,9 @@ public class HolaResourceSecurityFallbackTest {
     	given()
     	.when()
     		.auth()
-    		.oauth2(ArquillianTestUtils.getValidAccessToken("Voter"))
+    		.oauth2(ArquillianTestUtils.getValidAccessToken("XXXX"))
     		.get("/api/hola-secure")
     	.then()
-    		.statusCode(200);
+    		.statusCode(403);
     }
 }
