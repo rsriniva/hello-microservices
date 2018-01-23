@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
@@ -46,6 +47,8 @@ import io.swagger.annotations.ApiOperation;
 
 @Path("/")
 @Api("hola")
+@DeclareRoles({"VIP", "Voter"})
+
 @ApplicationScoped
 public class HolaResource {
 
@@ -113,6 +116,7 @@ public class HolaResource {
     @Path("/hola-secure")
     @Produces("application/json")
     @RolesAllowed({"VIP", "Voter"})
+	//authz
     public SecurePackage secureHola() {
     		boolean isVIP = securityContext.isUserInRole("VIP");
     		JsonWebToken token = (JsonWebToken) securityContext.getUserPrincipal();

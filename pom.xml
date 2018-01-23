@@ -50,6 +50,10 @@
 		<hamcrest.version>1.3</hamcrest.version>
 		<version.keycloak>3.1.0.Final</version.keycloak>
 		<version.bouncycastle>1.52</version.bouncycastle>
+		<version.restassured>3.0.6</version.restassured>
+		<version.wiremock>2.14.0</version.wiremock>
+		<version.hystrix>1.5.9</version.hystrix>
+		<version.nimbus>4.23</version.nimbus>
 	</properties>
 
 	<dependencyManagement>
@@ -128,14 +132,35 @@
 				<artifactId>mockito-all</artifactId>
 				<version>${mockito.version}</version>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.eclipse.microprofile/microprofile -->
 			<dependency>
 				<groupId>org.eclipse.microprofile</groupId>
 				<artifactId>microprofile</artifactId>
 				<version>${version.microprofile}</version>
 				<type>pom</type>
 			</dependency>
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>${version.restassured}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.tomakehurst</groupId>
+				<artifactId>wiremock-standalone</artifactId>
+				<version>${version.wiremock}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.netflix.hystrix</groupId>
+				<artifactId>hystrix-core</artifactId>
+				<version>${version.hystrix}</version>
+			</dependency>
+		        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>${version.nimbus}</version>
+        </dependency>
 		</dependencies>
+		
 	</dependencyManagement>
 
 	<dependencies>

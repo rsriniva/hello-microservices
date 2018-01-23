@@ -1,5 +1,6 @@
 package com.redhat.training.msa.hola.rest;
 
+
 import static io.restassured.RestAssured.given;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -12,6 +13,7 @@ import org.wildfly.swarm.Swarm;
 import org.wildfly.swarm.arquillian.CreateSwarm;
 
 import com.redhat.training.msa.hola.ArquillianTestUtils;
+import com.redhat.training.msa.hola.TokenUtils;
 
 @RunWith(Arquillian.class)
 public class HolaResourceSecurityFallbackTest {
@@ -30,13 +32,24 @@ public class HolaResourceSecurityFallbackTest {
 
     @Test
     @RunAsClient
+    public void testSecureEndpointWithCredentialsButNoRoles() throws Exception {
+    	given()
+    	.when()
+    		.auth()
+    		.oauth2(TokenUtils.generateTokenString("/unregistered.json"))
+    		.get("/api/hola-secure")
+    	.then()
+    		.statusCode(403);
+    }
+    @Test
+    @RunAsClient
     public void testSecureEndpointWithCredentials() throws Exception {
     	given()
     	.when()
     		.auth()
-    		.oauth2(ArquillianTestUtils.getValidAccessToken("XXXX"))
+    		.oauth2(TokenUtils.generateTokenString("/alumni.json"))
     		.get("/api/hola-secure")
     	.then()
-    		.statusCode(403);
+    		.statusCode(200);
     }
 }
