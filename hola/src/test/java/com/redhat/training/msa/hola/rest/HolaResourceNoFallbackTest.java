@@ -23,8 +23,9 @@ import com.redhat.training.msa.hola.ArquillianTestUtils;
 public class HolaResourceNoFallbackTest {
 	
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule(options().port(9999));
-	
+	public WireMockRule wireMockRule = new WireMockRule(options().port(7070));
+
+		
 	@Deployment
 	public static WebArchive createWebArchive() {
 		return ArquillianTestUtils.deploy();
@@ -35,9 +36,9 @@ public class HolaResourceNoFallbackTest {
 		return ArquillianTestUtils.newContainer();
 	}
 	@Test
-	public void test() {
-		wireMockRule.stubFor(get(urlMatching("/.*"))
-		        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("Aloha [MOCK]").proxiedFrom("http://aloha:8080")));
+	public void testNonFallback() {
+		wireMockRule.stubFor(get(urlMatching("/api/aloha"))
+		        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("Aloha [MOCK]")));
 		given().when().get("/api/hola-chaining").then().body(containsString("Aloha [MOCK]"));
 	
 	}

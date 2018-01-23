@@ -29,6 +29,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.redhat.training.msa.hola.rest.AlohaService;
 import com.uber.jaeger.metrics.Metrics;
@@ -58,6 +59,13 @@ public class TracingConfiguration {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TracingConfiguration.class);
     private static final String SERVICE_NAME = "hola";
 
+    @Inject
+    @ConfigProperty(name="alohaHostname")
+    private String hostname;
+    @Inject
+    @ConfigProperty(name="alohaPort")
+    private String port;
+    
     @Produces
     @Singleton
     public Tracer tracer() {
@@ -101,8 +109,10 @@ public class TracingConfiguration {
                 // Bind Zipkin Server Span to Feign Thread
                 .logger(new Logger.ErrorLogger()).logLevel(Logger.Level.BASIC)
                 .decoder(new JacksonDecoder())
-                .target(AlohaService.class,"http://aloha:8080/",
+                .target(AlohaService.class,"http://"+hostname+":"+port+"/",
                         () -> "Aloha response (fallback)");
+        log.info("Aloha service URL: http://"+hostname+":"+port+"/");
+
         if (service != null)
           log.info("Aloha service proxy created.");
         return service;
@@ -119,6 +129,7 @@ public class TracingConfiguration {
                     .addFilter("BraveServletFilter", new TracingFilter(tracer));
             // Explicit mapping to avoid trace on readiness probe
             filterRegistration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/api/hola", "/api/hola-chaining");
+            log.info("Context Initialized started");
         }
 
         @Override

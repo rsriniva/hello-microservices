@@ -116,7 +116,6 @@ public class HolaResource {
     @Path("/hola-secure")
     @Produces("application/json")
     @RolesAllowed({"VIP", "Voter"})
-	//authz
     public SecurePackage secureHola() {
     		boolean isVIP = securityContext.isUserInRole("VIP");
     		JsonWebToken token = (JsonWebToken) securityContext.getUserPrincipal();

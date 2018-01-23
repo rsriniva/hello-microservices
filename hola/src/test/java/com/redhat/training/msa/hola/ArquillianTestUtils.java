@@ -27,7 +27,7 @@ public class ArquillianTestUtils {
                 .addAsManifestResource("privateKey.pem","classes/privateKey.pem")
                 .addAsWebInfResource("alumni.json","classes/alumni.json")
                 .addAsWebInfResource("unregistered.json","classes/unregistered.json")
-				.addAsManifestResource("META-INF/microprofile-config.properties","microprofile-config.properties");
+				.addAsManifestResource("config-test.properties","microprofile-config.properties");
 		
 		System.out.println(webArchive.toString(true));
 
