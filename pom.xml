@@ -133,12 +133,6 @@
 				<version>${mockito.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.eclipse.microprofile</groupId>
-				<artifactId>microprofile</artifactId>
-				<version>${version.microprofile}</version>
-				<type>pom</type>
-			</dependency>
-			<dependency>
 				<groupId>io.rest-assured</groupId>
 				<artifactId>rest-assured</artifactId>
 				<version>${version.restassured}</version>
