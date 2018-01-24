@@ -28,7 +28,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.SecurityContext;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -41,6 +44,8 @@ import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.redhat.training.msa.hola.tracing.WithoutTracing;
 
 import io.swagger.annotations.Api;
@@ -97,6 +102,25 @@ public class HolaResource {
         return String.format("Hola de %s", hostname);
     }
 	
+	//To implement this class, I followed the steps from this blog post from Siamak: https://blog.openshift.com/building-microservices-wildfly-swarm-netflix-oss-openshift/
+	//One important fact: The Hystrix Dashboard cannot connect to the app due to a bug: https://issues.jboss.org/browse/SWARM-1796
+
+	class HolaCommand extends HystrixCommand<String> {
+	    public HolaCommand() {
+	        super(HystrixCommandGroupKey.Factory.asKey("HolaGroup"));
+	    }
+
+	    @Override
+	    protected String run() {
+	        String url = "/api/hola";
+	        Builder request = ClientBuilder.newClient().target(url).request();
+	        try {
+	            return request.get(new GenericType<String>(){});
+	        } catch (Exception e) {
+	            return null;
+	        }
+	    }
+	}
 
     /* (non-Javadoc)
 	 * @see com.redhat.training.msa.hola.rest.HolaResource#holaChaining()

@@ -164,6 +164,11 @@
 			<version>${version.hystrix}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.netflix.hystrix</groupId>
+			<artifactId>hystrix-serialization</artifactId>
+			<version>${version.hystrix}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-core</artifactId>
 			<version>${version.keycloak}</version>
