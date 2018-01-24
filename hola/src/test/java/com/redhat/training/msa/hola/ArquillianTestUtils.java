@@ -26,8 +26,7 @@ public class ArquillianTestUtils {
 	            .addAsWebInfResource("jwt-roles.properties", "classes/jwt-roles.properties")
                 .addAsManifestResource("privateKey.pem","classes/privateKey.pem")
                 .addAsWebInfResource("alumni.json","classes/alumni.json")
-                .addAsWebInfResource("unregistered.json","classes/unregistered.json")
-				.addAsManifestResource("config-test.properties","microprofile-config.properties");
+                .addAsWebInfResource("unregistered.json","classes/unregistered.json");
 		
 		System.out.println(webArchive.toString(true));
 

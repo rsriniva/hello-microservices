@@ -21,7 +21,7 @@ public class HolaResourceSecurityFallbackTest {
 
 	@Deployment
 	public static WebArchive createWebArchive() {
-		return ArquillianTestUtils.deploy();
+		return ArquillianTestUtils.deploy().addAsManifestResource("META-INF/microprofile-config.properties","microprofile-config.properties");
 	}
 
 	@CreateSwarm
