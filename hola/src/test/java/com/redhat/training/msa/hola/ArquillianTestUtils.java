@@ -12,6 +12,8 @@ import org.wildfly.swarm.Swarm;
 
 public class ArquillianTestUtils {
 
+	
+	
 	public static WebArchive deploy() {
 
 		File[] deps = Maven.resolver()
@@ -28,7 +30,7 @@ public class ArquillianTestUtils {
                 .addAsWebInfResource("alumni.json","classes/alumni.json")
                 .addAsWebInfResource("unregistered.json","classes/unregistered.json");
 		
-		System.out.println(webArchive.toString(true));
+//		System.out.println(webArchive.toString(true));
 
 		return webArchive;
 	}

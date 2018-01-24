@@ -31,6 +31,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -71,6 +72,15 @@ public class HolaResource {
 	@Metric(name = "failureCount", description = "Total chained endpoint failures encountered",
     		displayName="HolaResource#failureCount", absolute=true)
 	private Counter failedCount;
+	
+	
+    @Inject
+    @ConfigProperty(name="alohaHostname")
+    private String hostname;
+    
+    @Inject
+    @ConfigProperty(name="alohaPort")
+    private String port;
 
     /* (non-Javadoc)
 	 * @see com.redhat.training.msa.hola.rest.HolaResource#hola()
@@ -86,6 +96,7 @@ public class HolaResource {
         String hostname = servletRequest.getServerName();
         return String.format("Hola de %s", hostname);
     }
+	
 
     /* (non-Javadoc)
 	 * @see com.redhat.training.msa.hola.rest.HolaResource#holaChaining()
@@ -109,6 +120,10 @@ public class HolaResource {
         return greetings;
     }
 
+	
+	
+
+	
     /* (non-Javadoc)
 	 * @see com.redhat.training.msa.hola.rest.HolaResource#secureHola()
 	 */
@@ -122,6 +137,9 @@ public class HolaResource {
     		return new SecurePackage(token.getName(), new Date(token.getExpirationTime() * 1000).toString(), isVIP);
     }
 
+	
+	
+	
     @SuppressWarnings("unused")
 	private List<String> alohaFallback() {
 		failedCount.inc();

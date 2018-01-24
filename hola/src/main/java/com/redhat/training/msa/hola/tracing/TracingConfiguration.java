@@ -111,7 +111,6 @@ public class TracingConfiguration {
                 .decoder(new JacksonDecoder())
                 .target(AlohaService.class,"http://"+hostname+":"+port+"/",
                         () -> "Aloha response (fallback)");
-        log.info("Aloha service URL: http://"+hostname+":"+port+"/");
 
         if (service != null)
           log.info("Aloha service proxy created.");
