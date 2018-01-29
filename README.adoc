@@ -14,3 +14,8 @@ Microprofile specs utilized:
 - Fault Tolerance 1.0
 - Health 1.0
 - JAX-RS, CDI, JSON-P
+
+
+To run the services locally, use `mvn wildfly-swarm:run` in each service directory.
+
+To run the services in OpenShift, login to an OpenShift instance and create a new project. Then use `mvn fabric8:deploy` in each service directory to deploy the services to OpenShift.
