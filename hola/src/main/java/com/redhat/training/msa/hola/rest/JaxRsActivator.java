@@ -19,8 +19,6 @@ package com.redhat.training.msa.hola.rest;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import org.eclipse.microprofile.auth.LoginConfig;
-
 /**
  * A class extending {@link Application} and annotated with @ApplicationPath is the Java EE 7 "no XML" approach to activating
  * JAX-RS.
@@ -30,7 +28,6 @@ import org.eclipse.microprofile.auth.LoginConfig;
  * </p>
  */
 @ApplicationPath("/api")
-@LoginConfig(authMethod = "MP-JWT", realmName = "hello-domain")
 public class JaxRsActivator extends Application {
     /* class body intentionally left blank */
 }
