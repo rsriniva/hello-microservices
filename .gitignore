@@ -4,3 +4,4 @@ target
 .settings
 .tern-project
 audit.log
+.vertx
