@@ -8,13 +8,4 @@ spec:
       containers:
       - env:
          - name: JAVA_OPTIONS
-           value: "-Xmx512m -Dswarm.bind.address=0.0.0.0 -Dswarm.project.stage.file=file:///app/config/project-defaults.yml"
-        volumeMounts:
-        - mountPath: /app/config
-          name: appconfigvol
-          readOnly: true
-      volumes:
-      - configMap:
-          defaultMode: 420
-          name: appconfigcm
-        name: appconfigvol
+           value: "-Xmx512m -Dswarm.bind.address=0.0.0.0"

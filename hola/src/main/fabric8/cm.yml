@@ -1,9 +1,0 @@
----
-apiVersion: v1
-data:
-  project-defaults.yml: |
-    alohaHostname: "aloha.apps.lab.example.com"
-    alohaPort: "80"
-kind: ConfigMap
-metadata:
-  name: appconfigcm
