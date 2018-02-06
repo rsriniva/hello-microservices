@@ -212,13 +212,19 @@
 				<version>${version.fabric8.plugin}</version>
 				<configuration>
 					<generator>
-		                <includes>
-		                  <include>wildfly-swarm</include>
-		                </includes>
-		                <excludes>
-		                  <exclude>webapp</exclude>
-		                </excludes>
-              		</generator>
+		                		<includes>
+		                 			<include>wildfly-swarm</include>
+		                		</includes>
+		                		<excludes>
+		                  			<exclude>webapp</exclude>
+		                		</excludes>
+						<config>
+                                                        <wildfly-swarm>
+                                                                <fromMode>isTag</fromMode>
+                                                                <from>redhat-openjdk18-openshift</from>
+                                                        </wildfly-swarm>
+                                                </config>
+              				</generator>
 					<resources>
 						<labels>
 							<all>
