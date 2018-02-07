@@ -101,12 +101,6 @@
 		               			<excludes>
 		                  			<exclude>webapp</exclude>
 		                		</excludes>
-						<config>
-              						<wildfly-swarm>
-                						<fromMode>isTag</fromMode>
-                						<from>redhat-openjdk18-openshift</from>
-              						</wildfly-swarm>
-            					</config>
               				</generator>
 					<resources>
 						<labels>
