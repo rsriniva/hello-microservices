@@ -35,7 +35,8 @@
 		<version.surefire.plugin>2.16</version.surefire.plugin>
 		<version.war.plugin>2.5</version.war.plugin>
 		<version.fabric8.plugin>3.5.30</version.fabric8.plugin>
-		<fabric8.generator.from>registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.1</fabric8.generator.from>
+		<fabric8.generator.from>redhat-openjdk-18/openjdk18-openshift</fabric8.generator.from>
+		<fabric8.skipResourceValidation>true</fabric8.skipResourceValidation>
 		<version.resteasy>3.0.24.Final</version.resteasy>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
